@@ -1,0 +1,2 @@
+class Temporder < ApplicationRecord
+end

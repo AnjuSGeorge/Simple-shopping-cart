@@ -1,0 +1,65 @@
+<html>
+<head>
+<style>
+  table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 70%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+</style>
+</head>
+<body>
+  <table border="1">
+    <tr>
+      <th>Item</th>
+      <th>Cost</th>
+      <th>Remove</th>
+    </tr>
+    <% total = 0
+      for showProduct in @items do %>
+      <tr>
+        <td text-align="left"><%=Product.find(showProduct.Product_id).product_name%></td>
+        <td text-align="right"><%=showProduct.Price%></td>
+        <td><form method="delete" action="/temporders/<%=showProduct.id%>">
+          <%= button_to "delete", {:controller => :temporders,
+                                   :action => 'destroy', :id => showProduct.id }, :method => :delete %>
+
+        </form>
+        </td>
+      </tr>
+
+  <% total = total + showProduct.Price
+    end%>
+      </table>
+  <br>
+  <br>
+  <p><b>Total Cost: $<%= total%></b></p>
+<%     gene_id =  session[:GenVal]
+       if (session[:session_id] != nil)
+         curuser = current_user.id
+       end
+%>
+  <%= form_for([Order.new]) do |form| %>
+  <%= form.hidden_field :user_id,value:curuser %>
+  <%= form.hidden_field :total,value:total %>
+  <%= form.hidden_field :Gen_id,value: gene_id %>
+
+
+
+  <p>
+    <%= form.submit 'Place Order' %>
+  </p>
+<%end%>
+  </body>
+  </html>

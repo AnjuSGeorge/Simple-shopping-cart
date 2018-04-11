@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>Products</title>
+</head>
+<body>
+
+
+<div id="products" class="row list-group">
+    <% prdimg = "../images/"+@showproduct.product_img %>
+  <div class="item  col-xs-4 col-lg-4">
+    <div class="thumbnail">
+      <img class="group list-group-image" src="<%=prdimg%>" alt="images" height="250px" width="250px"/>
+      <div class="caption">
+        <h4 class="group inner list-group-item-heading">
+           <%=h @showproduct.product_name %></h4>
+        </h4>
+        <p class="group inner list-group-item-text">
+          <%=h @showproduct.description %>
+        </p>
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <p class="lead">
+              $ <%=h @showproduct.price %></p>
+            </p>
+          </div>
+                 </div>
+      </div>
+    </div>
+ <p>
+  <% if (session[:GenVal] == nil)
+    #   no = Random.new.rand(10..3000)
+       geneid = session[:session_id]
+       session[:GenVal] = geneid
+     #  curuser = current_user.id
+     end
+     gene_id =  session[:GenVal]
+  #if (current_user.id != nil)
+  # if (session[:session_id] != nil)
+    if user_signed_in?
+      curuser = current_user.id
+      #curuser =  User.find_by_id(session[:user_id])
+   end
+  %>
+  <%= form_for([Temporder.new]) do |form| %>
+    <%= form.hidden_field :User_id,value:curuser %>
+
+    <%= form.hidden_field :Product_id,value:@showproduct.id %>
+    <%= form.hidden_field :Price,value:@showproduct.price %>
+    <%= form.hidden_field :Gen_id,value:  gene_id %>
+
+
+
+<p>
+              <%= form.submit 'Order' %>
+              </p>
+
+  <%end%>
+
+  </p>
+  </div>
+
+</div>
+
+
+</body>
+</html>

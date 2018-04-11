@@ -1,0 +1,50 @@
+<body>
+
+<h1>Products</h1>
+<div id="all">
+  <div id="content">
+    <div class="container">
+      <div class="col-md-9">
+        <div class="row products">
+
+          <% for showProduct in @cat do %>
+            <% prdimg = "../images/"+showProduct.product_img %>
+
+            <div class="col-md-4 col-sm-6">
+              <div class="product">
+                <div class="flip-container">
+                  <div class="flipper">
+                    <div class="front" style= "height:150px; width:200px;">
+
+                      <img src="<%=prdimg%>" alt="" class="img-responsive" style= "height:150px; width:200px;">
+
+                    </div>
+                    <div class="back" style= "height:150px; width:200px;">
+
+                      <img src="<%=prdimg%>" alt="" class="img-responsive" style= "height:150px; width:200px;">
+
+                    </div>
+                  </div>
+                </div>
+                <a href="detail.html" class="invisible">
+                  <img src="<%=prdimg%>" alt="" class="img-responsive" style= "height:150px; width:200px;">
+                </a>
+                <div class="text">
+                  <h3><%=h showProduct.product_name %></h3>
+                  <h3><%=h showProduct.description %></h3>
+                  <p class="price">$<%=h showProduct.price %></p>
+                  <p class="buttons">
+                    <a class="btn btn-success" href = "../products/<%=showProduct.id %>">Add to cart</a>
+                  </p>
+                </div>
+                <!-- /.text -->
+              </div>
+              <!-- /.product -->
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
